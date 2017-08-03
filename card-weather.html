@@ -1,6 +1,8 @@
 <link rel="import" href="../polymer-channels-card/polymer-channels-card.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-weather/paper-weather.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
 
 <dom-module id="card-weather-composer">
   <template>
@@ -27,7 +29,7 @@
       }
       onSendClick() {
         if (this.$.location.value.trim().length > 0) {
-          this.send({ location: this.$.location.value.trim() });
+          this.send({ location: this.$.location.value.trim(), listView: false });
           this.$.location.value = '';
         }
       }
@@ -38,13 +40,25 @@
 
 <dom-module id="card-weather-viewer">
   <template>
-    <div>
-      <paper-weather location="[[data.location]]"></paper-weather>
+    <style>
+      .rotateIcon {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        cursor: pointer;
+      }
+    </style>
+    <div style="position: relative;">
+      <paper-weather location="[[data.location]]" list="[[data.listView]]" show-extra-data></paper-weather>
+      <iron-icon class="rotateIcon" icon="icons:autorenew" on-click="onRotateClick"></iron-icon>
     </div>
   </template>
   <script>
     class CardWeatherViewer extends PolymerChannelsCardViewer {
       static get is() { return 'card-weather-viewer'; }
+      onRotateClick() {
+        this.stateController.updateProperty('listView', !this.data.listView);
+      }
     }
     window.customElements.define(CardWeatherViewer.is, CardWeatherViewer);
   </script>
