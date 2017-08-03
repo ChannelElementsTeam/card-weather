@@ -1,0 +1,50 @@
+<link rel="import" href="../polymer-channels-card/polymer-channels-card.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-weather/paper-weather.html">
+
+<dom-module id="card-weather-composer">
+  <template>
+    <style>
+      input {
+        margin: 10px 5px;
+        width: 200px;
+        display: inline-block;
+        font-size: 15px;
+      }
+    </style>
+    <div>
+      <input id="location" placeholder="Enter city or zipcode" on-keydown="onKeydown">
+      <paper-button on-click="onSendClick" raised>Send</paper-button>
+    </div>
+  </template>
+  <script>
+    class CardWeatherComposer extends PolymerChannelsCardComposer {
+      static get is() { return 'card-weather-composer'; }
+      onKeydown(event) {
+        if (event.keyCode === 13) {
+          this.onSendClick();
+        }
+      }
+      onSendClick() {
+        if (this.$.location.value.trim().length > 0) {
+          this.send({ location: this.$.location.value.trim() });
+        }
+      }
+    }
+    window.customElements.define(CardWeatherComposer.is, CardWeatherComposer);
+  </script>
+</dom-module>
+
+<dom-module id="card-weather-viewer">
+  <template>
+    <div>
+      <paper-weather location="[[data.location]]"></paper-weather>
+    </div>
+  </template>
+  <script>
+    class CardWeatherViewer extends PolymerChannelsCardViewer {
+      static get is() { return 'card-weather-viewer'; }
+    }
+    window.customElements.define(CardWeatherViewer.is, CardWeatherViewer);
+  </script>
+</dom-module>
