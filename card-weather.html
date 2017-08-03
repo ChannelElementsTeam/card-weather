@@ -43,14 +43,25 @@
     <style>
       .rotateIcon {
         position: absolute;
-        top: 15px;
-        right: 15px;
+        top: 5px;
+        left: 5px;
         cursor: pointer;
       }
+
+      paper-weather {
+        display: inline-block;
+        max-width: 100%;
+      }
+
+      .weatherContainer {
+        position: relative;
+      }
     </style>
-    <div style="position: relative;">
-      <paper-weather location="[[data.location]]" list="[[data.listView]]" show-extra-data></paper-weather>
-      <iron-icon class="rotateIcon" icon="icons:autorenew" on-click="onRotateClick"></iron-icon>
+    <div>
+      <div class="weatherContainer">
+        <paper-weather location="[[data.location]]" list="[[data.listView]]" show-extra-data></paper-weather>
+        <iron-icon class="rotateIcon" icon="icons:swap-vert" on-click="onRotateClick"></iron-icon>
+      </div>
     </div>
   </template>
   <script>
