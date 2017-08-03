@@ -28,6 +28,7 @@
       onSendClick() {
         if (this.$.location.value.trim().length > 0) {
           this.send({ location: this.$.location.value.trim() });
+          this.$.location.value = '';
         }
       }
     }
